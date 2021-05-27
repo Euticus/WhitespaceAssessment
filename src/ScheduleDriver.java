@@ -71,6 +71,15 @@ public class ScheduleDriver
 				System.out.println("Networking Event");
 				return;
 			}
+			if (i == (talks.size()-1) && clock.compareTo(LocalTime.of(12, 0, 0)) < 0) // if last iteration of ArrayList<Talk>
+			{
+				System.out.print(clock.format(DateTimeFormatter.ofPattern(pattern)) + " ");
+				System.out.println(talks.get(i).getTitle());
+				clock = LocalTime.of(12,  0, 0);
+				System.out.print(clock.format(DateTimeFormatter.ofPattern(pattern)) + " ");
+				System.out.println("Lunch");
+				return;
+			}
 			if (i == (talks.size()-1)) // if last iteration of ArrayList<Talk>
 			{
 				System.out.print(clock.format(DateTimeFormatter.ofPattern(pattern)) + " ");
