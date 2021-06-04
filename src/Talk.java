@@ -1,12 +1,18 @@
 
-public class Talk {
+public final class Talk {
 	
 	private String title;
-	private int duration;
+	private final int duration;
+	
 	
 	public Talk(String title, int duration) {
 		this.title = title;
 		this.duration = duration; 
+	}
+	
+	public Talk() {
+		this.title = "testing";
+		this.duration = 45; 
 	}
 	
 	public String getTitle() {
