@@ -1,8 +1,10 @@
 "# WhitespaceAssessment" 
 
-This is the dynamic branch for the Whitespace assessment! This branch can handle any length of input from a .txt file. Two classes: Schedule Driver and Talk class. 
+This is the Learning branch for the Whitespace assessment! This branch is still learning! 
 
-Schedule Driver reads data from seedData.txt and creates Talk objects and adds them to an ArrayList<Talk>. The ArrayList<Talk> is then looped over to print track in the desired intervals for the conference.  
+Schedule Driver reads data from seedData.txt and creates Scheduler object populating it with Track objects (filled with Talk Objects)
+
+Track objects contain one MorningSession object and one AfternoonSession object. These add the minutes to print the Talk objects within each session
 
 Clone down and run in any java environment
 
