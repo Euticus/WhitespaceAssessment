@@ -29,34 +29,41 @@ public class Scheduler
 		int duration = 0;
 		int index = 0;
 		int j = 0;
-		while(index < this.allTalks.size()-1)
+		while(index <= this.allTalks.size()-1)
 		{
 			duration += this.allTalks.get(index).getDuration();
-			if(duration == 540 || duration + this.allTalks.get(index).getDuration() >= 540)
+			System.out.println("WHYYY " + duration);
+			if(duration >= 480 || index == this.allTalks.size()-1)
 			{
-				this.allTracks.add(new Track(this.allTalks.subList(j, index)));
+				Track temp = new Track(this.allTalks.subList(j, index));
+				this.allTracks.add(temp);
 				j = index;
 				duration = 0;
 			}
-			index++;
+				index++;
 		}
-
 	}
 	
 	public void getSchedule()
 	{
+		System.out.println("Scheduler getSchedule() " + this.allTracks.size());
 		int i = 0;
 		for (Track t : this.allTracks)
 		{	
 			System.out.println("Track " + ++i);
-			t.getMorningSession().printHMap();
-		 	t.getAfternoonSession().printHMap();
+			t.getMorningSession().printTreeMap();
+		 	t.getAfternoonSession().printTreeMap();
 		}
 	}
 	
 	public ArrayList<Track> getTracks()
 	{
 		return this.allTracks;
+	}
+	
+	public void getTotalNumTalks()
+	{
+		System.out.println("Total Num talks passed in " + this.allTalks.size());
 	}
 	
 	public String handleLightning(String talk) 

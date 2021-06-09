@@ -4,6 +4,7 @@ import static org.junit.Assert.assertThat;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -22,8 +23,7 @@ public class ScheduleTest {
 		{
 			FileReader fr = new FileReader();
 			Scheduler sd = new Scheduler(fr.getFileContents());
-			
-			sd.populateTalk(fr.getFileContents());
+		
 			Track testMT = new Track(new ArrayList<Talk>()); // creates Track Object
 			MorningSession testMS = new MorningSession(); 
 			testMS.equals(testMT.getMorningSession()); // checks if these are the same object
@@ -38,11 +38,10 @@ public class ScheduleTest {
 		{
 			FileReader fr = new FileReader();
 			Scheduler sd = new Scheduler(fr.getFileContents());
-			sd.populateTalk(fr.getFileContents());
 			
-			Track testMT = new Track(new ArrayList<Talk>()); // creates Track Object
-			LocalTime.of(9, 0,0).equals(testMT.getMorningSession().getTime());
-			// first talk of each morning sessions starts at 9am
+			for(Track t : sd.getTracks()) {
+				LocalTime.of(9, 0,0).equals(t.getMorningSession().getTime());
+			}
 		}
 		
 		@Test 
@@ -52,29 +51,25 @@ public class ScheduleTest {
 			FileReader fr = new FileReader();
 			Scheduler sd = new Scheduler(fr.getFileContents());
 		
-			Track testMT = new Track(new ArrayList<Talk>());
-		// 	assertEquals("Lunch", sd.getTracks()..getHashMap().get(LocalTime.of(12,0, 0)));
+			for(Track t : sd.getTracks()) {
+				assertEquals("Lunch", t.getMorningSession().getTreeMap().get(LocalTime.of(12,0,0)));
+			}
 		}
 		
-//		@Test 
-//		@DisplayName("Networking event starts at 5pm latest and 4pm earliest ")
-//		public void testEODBlock() 
-//		{
-//			Schedule sd = new Schedule();
-//			FileReader fr = new FileReader();
-//			
-//			sd.populateTalk(fr.getFileContents());
-//			Track testMT = new Track(new ArrayList<Talk>(sd.getList()));
-//			LocalTime timeOfnetworkingEvent = testMT.getAfternoonSession().getHashMap().entrySet()
-//													 .stream()
-//													 .filter(e -> Objects.equals(e.getValue(), "Networking Event"))
-//													 .map(Map.Entry::getKey)
-//													 .findFirst()
-//													 .orElse(null);
-//			assertEquals(true, ((timeOfnetworkingEvent.compareTo(LocalTime.of(16, 0, 0)) >= 0) || ((timeOfnetworkingEvent.compareTo(LocalTime.of(17, 0, 0)) <= 0))));
-//		}
+		@Test 
+		@DisplayName("Networking event starts at 5pm latest and 4pm earliest ")
+		public void testEODBlock() 
+		{
+			FileReader fr = new FileReader();
+			Scheduler sd = new Scheduler(fr.getFileContents());
+			
+			for(Track t : sd.getTracks()) {
+				Entry<LocalTime, String> lastEntry = t.getAfternoonSession().getTreeMap().lastEntry();
+				assertEquals(true, "Networking Event" == lastEntry.getValue());
+				assertEquals(true, (lastEntry.getKey().compareTo(LocalTime.of(16, 0, 0)) >= 0) || (lastEntry.getKey().compareTo(LocalTime.of(17, 0, 0)) <= 0));
+		}
 		
 		
 		
-		
+		}	
 }

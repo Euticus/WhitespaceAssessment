@@ -8,7 +8,7 @@ public class ScheduleDriver
 	{
 		FileReader fr = new FileReader();
 		Scheduler conference = new Scheduler(fr.getFileContents());  
-		conference.populateTalk(fr.getFileContents());
+		conference.getTotalNumTalks();
 		conference.getSchedule();
 	}
 

@@ -23,6 +23,7 @@ public class MorningSession extends Session{
 	public MorningSession()
 	{
 		super(LocalTime.of(9, 0, 0));
+		this.timeOfDay = LocalTime.of(9, 0, 0);
 		this.populateHMap();
 	}
 	
@@ -35,24 +36,24 @@ public class MorningSession extends Session{
 	{
 		for(Talk t: super.getTalks())
 		{
-			super.getMap().put(this.timeOfDay, t.getTitle());
+			super.getTreeMap().put(this.timeOfDay, t.getTitle());
 			this.timeOfDay = this.timeOfDay.plusMinutes(t.getDuration());	
 			if (this.timeOfDay.plusMinutes(t.getDuration()).compareTo(LocalTime.of(12, 0, 0)) >= 0) // if clock is 12pm or the Talk exceeds 12 but is less than 1pm 
 			{
-				super.getMap().put(LocalTime.of(12, 0, 0), "Lunch");
-				//	this.timeOfDay = this.timeOfDay.plusMinutes(60);
+				super.getTreeMap().put(LocalTime.of(12, 0, 0), "Lunch");
+				return;
 			}
 		}
 	}
 	
-	public TreeMap<LocalTime, String> getHashMap()
+	public TreeMap<LocalTime, String> getTreeMap()
 	{
-		return super.getMap();
+		return super.getTreeMap();
 	}
 	
-	public void printHMap() 
+	public void printTreeMap() 
 	{
-	    super.printHMap();
+	    super.printTreeMap();
 	}
 	
 

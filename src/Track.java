@@ -15,17 +15,23 @@ public class Track
 	
 	public void createSessions(List<Talk> talks)
 	{
+	
 		int duration = 0;
 		int index = 0;
-		while( index < talks.size())
+		while(index < talks.size()-1)
 		{
-			duration += talks.get(index).getDuration();
-			System.out.println("duration" + duration);
-			if(duration == 120 || duration + talks.get(index).getDuration() >= 120 )
+	
+			if(duration < 180)
 			{
-				this.ms = new MorningSession(new ArrayList<Talk>(talks.subList(0, index)));
-				this.as = new AfternoonSession(new ArrayList<Talk>(talks.subList(index, talks.size())));
-			
+				duration += talks.get(index).getDuration();
+			}
+			if(duration >= 180)
+			{
+				List<Talk> l1 = talks.subList(0, index);
+				List<Talk> l2 = talks.subList(index, talks.size());
+				this.ms = new MorningSession(new ArrayList<Talk>(l1));
+				this.as = new AfternoonSession(new ArrayList<Talk>(l2));	
+				return;
 			}
 			index++;
 		}
@@ -40,5 +46,4 @@ public class Track
 	{
 		return this.as;
 	}
-	
 }

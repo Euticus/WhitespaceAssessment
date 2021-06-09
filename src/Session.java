@@ -31,15 +31,14 @@ public abstract class Session {
 	{
 		return talks;
 	}
-
 	
-	public TreeMap<LocalTime, String> getMap()
+	public TreeMap<LocalTime, String> getTreeMap()
 	{
 		return this.map;
 	}
 	
-	public void printHMap() {
-	      Set set = map.entrySet();
+	public void printTreeMap() {
+	      Set set = this.map.entrySet();
 	      Iterator iterator = set.iterator();
 	      while(iterator.hasNext()) {
 	         Map.Entry mentry = (Map.Entry)iterator.next();

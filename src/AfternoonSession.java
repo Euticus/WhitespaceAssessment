@@ -19,6 +19,7 @@ public class AfternoonSession extends Session {
 	public AfternoonSession()
 	{
 		super(LocalTime.of(13, 0, 0));
+		this.timeOfDay = LocalTime.of(13, 0, 0);
 		this.populateHMap();
 	}
 
@@ -32,25 +33,31 @@ public class AfternoonSession extends Session {
 	{
 		for(Talk t: super.getTalks())
 		{
-			super.getMap().put(this.timeOfDay, t.getTitle());
+			super.getTreeMap().put(this.timeOfDay, t.getTitle());
 			this.timeOfDay = this.timeOfDay.plusMinutes(t.getDuration());
-			if (this.timeOfDay.plusMinutes(t.getDuration()).compareTo(LocalTime.of(16, 0, 0)) >= 0 &&
-				this.timeOfDay.plusMinutes(t.getDuration()).compareTo(LocalTime.of(17, 0, 0)) <= 0)
+			if (this.timeOfDay.compareTo(LocalTime.of(16, 0, 0)) >= 0 &&
+				this.timeOfDay.compareTo(LocalTime.of(17, 0, 0)) <= 0)
 			{
-				super.getMap().put(this.timeOfDay, "Network Event");
+				super.getTreeMap().put(this.timeOfDay, "Networking Event");
+				return;
 			}
 		}
 		
 	}
 	
-	public TreeMap<LocalTime, String> getHashMap()
+	public TreeMap<LocalTime, String> getTreeMap()
 	{
-		return super.getMap();
+		return super.getTreeMap();
+	}
+	
+	public int getLastEvent()
+	{
+		return super.getTreeMap().size();
 	}
 
-	public void printHMap() 
+	public void printTreeMap() 
 	{
-	    super.printHMap();
+	    super.printTreeMap();
 	}
 
 }
