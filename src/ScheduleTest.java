@@ -24,7 +24,7 @@ public class ScheduleTest {
 			FileReader fr = new FileReader();
 			Scheduler sd = new Scheduler(fr.getFileContents());
 		
-			Track testMT = new Track(new ArrayList<Talk>()); // creates Track Object
+			Track testMT = new Track(new MorningSession(), new AfternoonSession()); // creates Track Object
 			MorningSession testMS = new MorningSession(); 
 			testMS.equals(testMT.getMorningSession()); // checks if these are the same object
 			AfternoonSession testAS = new AfternoonSession(); 
