@@ -29,43 +29,42 @@ public class Scheduler
 	
 	public void createTracks()
 	{
-		sumUp(this.allTalks, 180, 420);
-	
+		sumUp(this.allTalks, 180, 180);
 	}
 	
 	public void sumUp(List<Talk> talks, int target, int target2)
 	{
-		List<Talk> talkscopy = talks;
-		boolean AMcreated = false;
+		List<Talk> talkscopy = new ArrayList<Talk>(talks);
+		boolean amCreated = false;
 		int duration = 0;
 		int j = 0;
 		int i = 0;
 	 
 	    while(i < talkscopy.size())
 	    {
-	    	System.out.println("this is i " + i);
-	    	System.out.println("this is j " + j);
-	    	if(duration < target2)
-	    	{
-	    		duration += talkscopy.get(i).getDuration();
-	    	}
-	    	if (duration >= target && !AMcreated)
+	    	duration += talkscopy.get(i).getDuration();
+	    	if (duration >= target && !amCreated)
 	    	{
 	    		this.tempAMTalkList = talkscopy.subList(j, i);
 	    		j = i;
-	    		AMcreated = !AMcreated;
+	    		duration = 0;
+	    		amCreated = !amCreated;
 	    	}
-	    	if (duration >= target2 && AMcreated)
+	    	if (duration >= target2 || i == talkscopy.size()-1 && amCreated)
 	    	{
 	    		this.tempPMTalkList = talkscopy.subList(j, i);
+	    		j = i;
+	    		duration = 0;
+	    		amCreated = !amCreated;
 	    	}
 	    	if(this.tempAMTalkList.size() > 0 && this.tempPMTalkList.size() > 0)
 	    	{
 	    		Track temp = new Track(new MorningSession(new ArrayList<Talk>(this.tempAMTalkList)), new AfternoonSession(new ArrayList<Talk>(this.tempPMTalkList)));
-				this.allTracks.add(temp);
+	    		this.allTracks.add(temp);
+	    		this.tempAMTalkList = new ArrayList<Talk>();
+	    		this.tempPMTalkList = new ArrayList<Talk>();
 	    	}
 	    	i++;
-
 	    }
 	}
 	
@@ -84,11 +83,6 @@ public class Scheduler
 	public ArrayList<Track> getTracks()
 	{
 		return this.allTracks;
-	}
-	
-	public void getTotalNumTalks()
-	{
-		System.out.println("Total Num talks passed in " + this.allTalks.size());
 	}
 	
 	public String handleLightning(String talk) 

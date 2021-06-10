@@ -35,13 +35,10 @@ public class AfternoonSession extends Session {
 		{
 			super.getTreeMap().put(this.timeOfDay, t.getTitle());
 			this.timeOfDay = this.timeOfDay.plusMinutes(t.getDuration());
-			if (this.timeOfDay.compareTo(LocalTime.of(16, 0, 0)) >= 0 &&
-				this.timeOfDay.compareTo(LocalTime.of(17, 0, 0)) <= 0)
-			{
-				super.getTreeMap().put(this.timeOfDay, "Networking Event");
-				return;
-			}
+		
 		}
+	super.getTreeMap().put(this.timeOfDay, "Networking Event");
+	return;
 		
 	}
 	

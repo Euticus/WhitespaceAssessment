@@ -38,12 +38,9 @@ public class MorningSession extends Session{
 		{
 			super.getTreeMap().put(this.timeOfDay, t.getTitle());
 			this.timeOfDay = this.timeOfDay.plusMinutes(t.getDuration());	
-			if (this.timeOfDay.plusMinutes(t.getDuration()).compareTo(LocalTime.of(12, 0, 0)) >= 0) // if clock is 12pm or the Talk exceeds 12 but is less than 1pm 
-			{
-				super.getTreeMap().put(LocalTime.of(12, 0, 0), "Lunch");
-				return;
-			}
 		}
+		super.getTreeMap().put(LocalTime.of(12, 0, 0), "Lunch");
+		return;
 	}
 	
 	public TreeMap<LocalTime, String> getTreeMap()
