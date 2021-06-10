@@ -1,4 +1,5 @@
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
@@ -6,7 +7,8 @@ import java.util.Set;
 import java.util.TreeMap;
 
 public abstract class Session {
-
+	
+	public static String pattern = "hh:mm a";
 	private ArrayList<Talk> talks;
 	private LocalTime timeOfDay;
 	private TreeMap<LocalTime, String> map = new TreeMap<LocalTime, String>();
@@ -42,7 +44,7 @@ public abstract class Session {
 	      Iterator iterator = set.iterator();
 	      while(iterator.hasNext()) {
 	         Map.Entry mentry = (Map.Entry)iterator.next();
-	         System.out.print("key is: "+ mentry.getKey() + " & Value is: ");
+	         System.out.print(((LocalTime) mentry.getKey()).format(DateTimeFormatter.ofPattern(pattern)) + " ");
 	         System.out.println(mentry.getValue());
 	      }
 		

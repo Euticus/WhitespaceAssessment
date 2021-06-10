@@ -1,29 +1,15 @@
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Objects;
-import java.util.Optional;
-
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 
-public class ScheduleTest {
-
-		private Scheduler scheduler; 
-		
-		
+public class ScheduleTest { 
+			
 		@Test 
 		@DisplayName("Each track has a morning session and afternoon session ")
 		public void testAMPMtrackSessions() 
 		{
-			FileReader fr = new FileReader();
-			Scheduler sd = new Scheduler(fr.getFileContents());
-		
 			Track testMT = new Track(new MorningSession(), new AfternoonSession()); // creates Track Object
 			MorningSession testMS = new MorningSession(); 
 			testMS.equals(testMT.getMorningSession()); // checks if these are the same object
@@ -51,8 +37,9 @@ public class ScheduleTest {
 			FileReader fr = new FileReader();
 			Scheduler sd = new Scheduler(fr.getFileContents());
 		
-			for(Track t : sd.getTracks()) {
-				assertEquals("Lunch", t.getMorningSession().getTreeMap().get(LocalTime.of(12,0,0)));
+			for(Track t : sd.getTracks()) 
+			{
+				assertEquals("Lunch", t.getMorningSession().getTreeMap().get(LocalTime.of(12,0,0))); // checks every Talk listed at 12pm is Lunch
 			}
 		}
 		
@@ -63,13 +50,12 @@ public class ScheduleTest {
 			FileReader fr = new FileReader();
 			Scheduler sd = new Scheduler(fr.getFileContents());
 			
-			for(Track t : sd.getTracks()) {
+			for(Track t : sd.getTracks()) 
+			{
 				Entry<LocalTime, String> lastEntry = t.getAfternoonSession().getTreeMap().lastEntry();
-				assertEquals(true, "Networking Event" == lastEntry.getValue());
-				assertEquals(true, (lastEntry.getKey().compareTo(LocalTime.of(16, 0, 0)) >= 0) || (lastEntry.getKey().compareTo(LocalTime.of(17, 0, 0)) <= 0));
-		}
+				assertEquals(true, "Networking Event" == lastEntry.getValue()); // checks last value is networking event
+				assertEquals(true, (lastEntry.getKey().compareTo(LocalTime.of(16, 0, 0)) >= 0) || (lastEntry.getKey().compareTo(LocalTime.of(17, 0, 0)) <= 0)); // checks if networking event is in between 4 and 5pm
+			}
 		
-		
-		// call main schedule driver and see if returning the list of two tracks
 		}	
 }
